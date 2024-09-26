@@ -8,48 +8,36 @@
         </mat-card-header>
         <!-- The mat card content includes all of the to-do list items. -->
         <mat-card-content>
-            <!-- 
-                TODO: Display to-do list items.
-                Use `mat-list` combined with `mat-list-item`s to display all information.
-            
-                Each mat-list-item should include the following:
-                - One `mat-checkbox` that displays whether the item is checkmarked.
-                    Hint: Use the [checked] and (change) bindings to control the read/write of data.
-                - The title of the to-do list item, using string interpolation.
-                - One delete button that, when clicked, removes the item from the list.
-
-                When there are no items in the to-do list, display a message to encourage users to add an item.
-                  Hint: Use @for combined with @empty.
-            -->
-           
-        </mat-card-content>
+            <mat-list>
+                <mat-divider />
+                @for(item of todoService.todoList(); track item.id) {
+                    <mat-list-item role="listitem">
+                        <div class="list-item-row">
+                            <mat-checkbox [checked]="item.completed" (change)="checkmarkPressed(item)"/>
+                            {{ item.title }}
+                            <button mat-icon-button class="delete-button" (click)="deleteItem(item)">
+                                <mat-icon class=tertiary-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </mat-list-item>
+                    <mat-divider />
+                } @empty {
+                    <p id="empty-text">There is nothing in your to-do list! Add an item below.</p>
+                }
+              </mat-list>
+            </mat-card-content>
         <!-- Stores the bottom bar with a text input and a button. -->
         <mat-card-actions>
             <!-- This form field enables user input to add a new item. -->
-            <!-- 
-                TODO: Currently, this form field does not connect to any form control, so
-                we cannot access what data the user types in! Use the `[formControl]` 
-                property binding to connect this form field to the form control in
-                the component TS file.
-             -->
             <mat-form-field appearance="outline" color="accent">
                 <mat-label>New To-Do Item</mat-label>
                 <input
                 matInput
                 placeholder=""
-                [formControl]=""
-                />  
+                [formControl]="newItemFormControl"
+                required />  
             </mat-form-field>
-            <!-- This button enables the user to add the to-do item. -->
-            <!-- 
-                TODO: Currently, this button does not do anything! Call the appropriate method
-                when this button is pressed to delete the correct item from the to-do list.
-                    Hint: Use the (click) event binding.
-
-                CHALLENGE: Using the [disabled] property binding, "disable" (grey-out) the button
-                when the user has typed in no text into the form field above.
-              -->
-            <button mat-flat-button class="primary-button">
+            <button mat-flat-button class="primary-button" (click)="addNewItem()" [disabled]="newItemFormControl.value?.length == 0">
                 <mat-icon>add</mat-icon>
                 Add To-Do
             </button>

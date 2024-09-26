@@ -43,28 +43,31 @@ export class TodoPageComponent {
 
   /** Adds a new item to the to-do list based on the string typed in. */
   addNewItem() {
-    // TODO: Retrieve the text inputted into the form control.
-   
-    // TODO: Use the service to create a new to-do list item, if the title
+    // Retrieve the text inputted into the form control.
+    const newItemTitle = this.newItemFormControl.value;
+    // Use the service to create a new to-do list item, if the title
     // is not null and if it is not empty.
-
+    if (newItemTitle && newItemTitle.length > 0) {
+      this.todoService.addItem(newItemTitle);
+      console.log(this.todoService.todoList());
+    }
   }
 
   /**
    * Toggles the checkmark for the inputted item.
    * @param item: Item to toggle the checkmark for.
    */
-  checkmarkPressed() {
-    // TODO: Call the appropriate service method to checkmark the item.
- 
+  checkmarkPressed(item: ToDoListItem) {
+    // Call the appropriate service method to checkmark the item.
+    this.todoService.toggleItemCheckmark(item);
   }
 
   /**
    * Deletes an item from the todo list.
    * @param item: Item to delete.
    */
-  deleteItem() {
-    // TODO: Call the appropriate service method to delete the item.
-
+  deleteItem(item: ToDoListItem) {
+    // Call the appropriate service method to delete the item.
+    this.todoService.deleteItem(item);
   }
 }
