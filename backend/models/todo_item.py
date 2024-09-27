@@ -9,6 +9,6 @@ __license__ = "MIT"
 
 
 class TodoItem(BaseModel):
-    id: int
+    id: int | None
     title: str
     completed: bool

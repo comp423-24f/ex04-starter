@@ -31,7 +31,7 @@ def test_list(todo_svc: TodoService):
 
 
 def test_create(todo_svc: TodoService):
-    new_item = TodoItem(id=1, title="test", completed=False)
+    new_item = TodoItem(id=None, title="test", completed=False)
     result = todo_svc.create(student, new_item)
     assert result.id == 1
     items = todo_svc.all(student)

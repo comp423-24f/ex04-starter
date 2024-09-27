@@ -8,7 +8,7 @@
  */
 
 export interface ToDoListItem {
-  id: number;
+  id: number | null;
   title: string;
   completed: boolean;
 }
